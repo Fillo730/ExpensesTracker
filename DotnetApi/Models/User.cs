@@ -1,3 +1,5 @@
+using DotnetApi.Utils;
+
 namespace DotnetApi.Models;
 
 public class User
@@ -8,7 +10,9 @@ public class User
 
     public string PasswordHash { get; set; } = string.Empty;
 
-    public string Name { get; set;} = string.Empty;
+    public string Username { get; set;} = string.Empty;
+
+    public UserRoleEnum Role { get; set; } = UserRoleEnum.User;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
