@@ -1,5 +1,4 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import useLanguageStore from "../hooks/useLanguage";
 import useThemeStore from "../hooks/useTheme";
 import { supportedLanguages } from "../i18n";
@@ -21,28 +20,17 @@ function LanguageToggler() {
     };
 
     return (
-        <SafeAreaView edges={["top"]} style={styles.safeArea} pointerEvents="box-none">
-            <Pressable
-                onPress={handlePress}
-                style={[styles.button, { backgroundColor: colors.surface, borderColor: colors.border }]}
-            >
-                <Text style={[styles.label, { color: colors.text }]}>{LANGUAGE_LABELS[language] ?? language}</Text>
-            </Pressable>
-        </SafeAreaView>
+        <Pressable
+            onPress={handlePress}
+            style={[styles.button, { backgroundColor: colors.surface, borderColor: colors.border }]}
+        >
+            <Text style={[styles.label, { color: colors.text }]}>{LANGUAGE_LABELS[language] ?? language}</Text>
+        </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        position: "absolute",
-        top: 0,
-        right: 0,
-        left: 0,
-        zIndex: 100,
-        alignItems: "flex-start",
-    },
     button: {
-        margin: 12,
         height: 44,
         minWidth: 44,
         paddingHorizontal: 12,

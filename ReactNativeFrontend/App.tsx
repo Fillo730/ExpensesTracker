@@ -6,8 +6,7 @@ import useAuthStore from "./src/hooks/useAuth";
 import useThemeStore from "./src/hooks/useTheme";
 import useLanguageStore from "./src/hooks/useLanguage";
 import RootNavigator from "./src/navigation/RootNavigator";
-import ThemeToggler from "./src/components/ThemeToggler";
-import LanguageToggler from "./src/components/LanguageToggler";
+import TopBar from "./src/components/TopBar";
 
 export default function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
@@ -24,8 +23,7 @@ export default function App() {
     <SafeAreaProvider>
       <View style={{ flex: 1 }}>
         <RootNavigator />
-        <LanguageToggler />
-        <ThemeToggler />
+        <TopBar />
       </View>
     </SafeAreaProvider>
   );
