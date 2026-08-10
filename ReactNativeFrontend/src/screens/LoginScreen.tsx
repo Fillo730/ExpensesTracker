@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, View, Text, Button, TextInput, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { AuthStackParamList } from "../navigation/AuthStack";
 import useAuthStore from "../hooks/useAuth";
 import useThemeStore from "../hooks/useTheme";
+import AppButton from "../components/AppButton";
+import AppTextInput from "../components/AppTextInput";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
@@ -30,58 +32,87 @@ function LoginScreen({ navigation }: Props) {
     };
 
     return (
-        <View style={[styles.container, { backgroundColor: colors.background }]}>
-            <Text style={[styles.title, { color: colors.text }]}>Login</Text>
+        <KeyboardAvoidingView
+            style={[styles.flex, { backgroundColor: colors.background }]}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={[styles.title, { color: colors.text }]}>Bentornato</Text>
+                    <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+                        Accedi al tuo account per continuare
+                    </Text>
+                </View>
 
-            <TextInput
-                style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
-                placeholder="Username"
-                placeholderTextColor={colors.textSecondary}
-                autoCapitalize="none"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                style={[styles.input, { borderColor: colors.border, color: colors.text, backgroundColor: colors.surface }]}
-                placeholder="Password"
-                placeholderTextColor={colors.textSecondary}
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
+                <View style={styles.form}>
+                    <AppTextInput
+                        label="Username"
+                        placeholder="Il tuo username"
+                        autoCapitalize="none"
+                        value={username}
+                        onChangeText={setUsername}
+                    />
+                    <AppTextInput
+                        label="Password"
+                        placeholder="La tua password"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
+                    />
 
-            {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
+                    {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
 
-            {isSubmitting || isLoading ? (
-                <ActivityIndicator color={colors.primary} />
-            ) : (
-                <Button title="Accedi" onPress={handleLogin} disabled={!username || !password} color={colors.primary} />
-            )}
-
-            <Button title="Vai a Registrazione" onPress={() => navigation.navigate("Register")} color={colors.primary} />
-        </View>
+                    <View style={styles.actions}>
+                        <AppButton
+                            title="Accedi"
+                            onPress={handleLogin}
+                            disabled={!username || !password}
+                            loading={isSubmitting || isLoading}
+                        />
+                        <AppButton
+                            title="Crea un account"
+                            variant="secondary"
+                            onPress={() => navigation.navigate("Register")}
+                        />
+                    </View>
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
+    flex: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         justifyContent: "center",
-        padding: 24,
-        gap: 12,
+        paddingHorizontal: 24,
+        maxWidth: 420,
+        width: "100%",
+        alignSelf: "center",
+    },
+    header: {
+        marginBottom: 32,
+        gap: 6,
     },
     title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 12,
+        fontSize: 28,
+        fontWeight: "700",
     },
-    input: {
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 12,
+    subtitle: {
+        fontSize: 15,
+    },
+    form: {
+        gap: 16,
+    },
+    actions: {
+        gap: 10,
+        marginTop: 8,
     },
     error: {
-        color: "red",
+        fontSize: 14,
     },
 })
 

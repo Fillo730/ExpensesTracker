@@ -5,6 +5,7 @@ export interface ThemePalette {
     textSecondary: string,
     border: string,
     primary: string,
+    onPrimary: string,
     error: string,
 }
 
@@ -15,6 +16,7 @@ export const lightPalette: ThemePalette = {
     textSecondary: "#6b6b6b",
     border: "#d0d0d0",
     primary: "#2563eb",
+    onPrimary: "#ffffff",
     error: "#dc2626",
 };
 
@@ -25,5 +27,6 @@ export const darkPalette: ThemePalette = {
     textSecondary: "#a0a0a0",
     border: "#3a3a3a",
     primary: "#3b82f6",
+    onPrimary: "#ffffff",
     error: "#f87171",
 };
