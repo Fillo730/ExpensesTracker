@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
+import { useTranslation } from "react-i18next";
 import useAuthStore from "../hooks/useAuth";
 import useThemeStore from "../hooks/useTheme";
 import AppButton from "../components/AppButton";
 
 function HomeScreen() {
+    const { t } = useTranslation();
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
     const colors = useThemeStore((state) => state.colors);
@@ -11,13 +13,15 @@ function HomeScreen() {
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <View style={styles.header}>
-                <Text style={[styles.greeting, { color: colors.text }]}>Ciao, {user?.username}</Text>
+                <Text style={[styles.greeting, { color: colors.text }]}>
+                    {t("home.greeting", { username: user?.username })}
+                </Text>
                 <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                    Bentornato nella tua dashboard
+                    {t("home.subtitle")}
                 </Text>
             </View>
 
-            <AppButton title="Logout" variant="secondary" onPress={() => logout()} />
+            <AppButton title={t("home.logout")} variant="secondary" onPress={() => logout()} />
         </View>
     );
 }

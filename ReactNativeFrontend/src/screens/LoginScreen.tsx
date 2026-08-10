@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import { useTranslation } from "react-i18next";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { AuthStackParamList } from "../navigation/AuthStack";
 import useAuthStore from "../hooks/useAuth";
@@ -10,6 +11,7 @@ import AppTextInput from "../components/AppTextInput";
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
 function LoginScreen({ navigation }: Props) {
+    const { t } = useTranslation();
     const isLoading = useAuthStore((state) => state.isLoading);
     const login = useAuthStore((state) => state.login);
     const colors = useThemeStore((state) => state.colors);
@@ -25,7 +27,7 @@ function LoginScreen({ navigation }: Props) {
         try {
             await login({ username, password });
         } catch {
-            setError("Credenziali non valide. Riprova.");
+            setError(t("auth.login.error"));
         } finally {
             setIsSubmitting(false);
         }
@@ -38,23 +40,23 @@ function LoginScreen({ navigation }: Props) {
         >
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={[styles.title, { color: colors.text }]}>Bentornato</Text>
+                    <Text style={[styles.title, { color: colors.text }]}>{t("auth.login.title")}</Text>
                     <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                        Accedi al tuo account per continuare
+                        {t("auth.login.subtitle")}
                     </Text>
                 </View>
 
                 <View style={styles.form}>
                     <AppTextInput
-                        label="Username"
-                        placeholder="Il tuo username"
+                        label={t("auth.login.usernameLabel")}
+                        placeholder={t("auth.login.usernamePlaceholder")}
                         autoCapitalize="none"
                         value={username}
                         onChangeText={setUsername}
                     />
                     <AppTextInput
-                        label="Password"
-                        placeholder="La tua password"
+                        label={t("auth.login.passwordLabel")}
+                        placeholder={t("auth.login.passwordPlaceholder")}
                         secureTextEntry
                         value={password}
                         onChangeText={setPassword}
@@ -64,13 +66,13 @@ function LoginScreen({ navigation }: Props) {
 
                     <View style={styles.actions}>
                         <AppButton
-                            title="Accedi"
+                            title={t("auth.login.submit")}
                             onPress={handleLogin}
                             disabled={!username || !password}
                             loading={isSubmitting || isLoading}
                         />
                         <AppButton
-                            title="Crea un account"
+                            title={t("auth.login.goToRegister")}
                             variant="secondary"
                             onPress={() => navigation.navigate("Register")}
                         />

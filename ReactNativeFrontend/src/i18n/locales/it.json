@@ -1,0 +1,49 @@
+{
+    "common": {
+        "back": "Indietro"
+    },
+    "navigation": {
+        "login": "Login",
+        "register": "Registrazione",
+        "home": "Home"
+    },
+    "auth": {
+        "login": {
+            "title": "Bentornato",
+            "subtitle": "Accedi al tuo account per continuare",
+            "usernameLabel": "Username",
+            "usernamePlaceholder": "Il tuo username",
+            "passwordLabel": "Password",
+            "passwordPlaceholder": "La tua password",
+            "submit": "Accedi",
+            "goToRegister": "Crea un account",
+            "error": "Credenziali non valide. Riprova."
+        },
+        "register": {
+            "title": "Crea account",
+            "subtitle": "Registrati per iniziare a tracciare le tue spese",
+            "usernameLabel": "Username",
+            "usernamePlaceholder": "Scegli uno username",
+            "emailLabel": "Email",
+            "emailPlaceholder": "nome@esempio.com",
+            "passwordLabel": "Password",
+            "passwordPlaceholder": "Crea una password",
+            "confirmPasswordLabel": "Conferma Password",
+            "confirmPasswordPlaceholder": "Reinserisci la Password",
+            "submit": "Registrati",
+            "goToLogin": "Torna al login",
+            "error": "Registrazione non riuscita. Riprova.",
+            "passwordMismatch": "Le password non coincidono"
+        }
+    },
+    "home": {
+        "greeting": "Ciao, {{username}}",
+        "subtitle": "Bentornato nella tua dashboard",
+        "logout": "Logout"
+    },
+    "validation": {
+        "passwordMinLength": "La password deve contenere almeno {{min}} caratteri",
+        "passwordMinSpecialSymbols": "La password deve contenere almeno {{min}} simbolo/i speciale/i",
+        "passwordMinNumbers": "La password deve contenere almeno {{min}} numero/i"
+    }
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import { useTranslation } from "react-i18next";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { AuthStackParamList } from "../navigation/AuthStack";
 import useAuthStore from "../hooks/useAuth";
@@ -10,6 +11,7 @@ import AppTextInput from "../components/AppTextInput";
 type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
 function RegisterScreen({ navigation }: Props) {
+    const { t } = useTranslation();
     const register = useAuthStore((state) => state.register);
     const colors = useThemeStore((state) => state.colors);
     const isLoading = useAuthStore((state) => state.isLoading);
@@ -19,14 +21,21 @@ function RegisterScreen({ navigation }: Props) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleRegister = async () => {
         setError(null);
+
+        if (password !== confirmPassword) {
+            setError(t("auth.register.passwordMismatch"));
+            return;
+        }
+
         setIsSubmitting(true);
         try {
             await register({ username, email, password });
         } catch {
-            setError("Registrazione non riuscita. Riprova.");
+            setError(t("auth.register.error"));
         } finally {
             setIsSubmitting(false);
         }
@@ -39,47 +48,54 @@ function RegisterScreen({ navigation }: Props) {
         >
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={[styles.title, { color: colors.text }]}>Crea account</Text>
+                    <Text style={[styles.title, { color: colors.text }]}>{t("auth.register.title")}</Text>
                     <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                        Registrati per iniziare a tracciare le tue spese
+                        {t("auth.register.subtitle")}
                     </Text>
                 </View>
 
                 <View style={styles.form}>
                     <AppTextInput
-                        label="Username"
-                        placeholder="Scegli uno username"
+                        label={t("auth.register.usernameLabel")}
+                        placeholder={t("auth.register.usernamePlaceholder")}
                         autoCapitalize="none"
                         value={username}
                         onChangeText={setUsername}
                     />
                     <AppTextInput
-                        label="Email"
-                        placeholder="nome@esempio.com"
+                        label={t("auth.register.emailLabel")}
+                        placeholder={t("auth.register.emailPlaceholder")}
                         autoCapitalize="none"
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
                     />
                     <AppTextInput
-                        label="Password"
-                        placeholder="Crea una password"
+                        label={t("auth.register.passwordLabel")}
+                        placeholder={t("auth.register.passwordPlaceholder")}
                         secureTextEntry
                         value={password}
                         onChangeText={setPassword}
+                    />
+                    <AppTextInput
+                        label={t("auth.register.confirmPasswordLabel")}
+                        placeholder={t("auth.register.confirmPasswordPlaceholder")}
+                        secureTextEntry
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
                     />
 
                     {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
 
                     <View style={styles.actions}>
                         <AppButton
-                            title="Registrati"
+                            title={t("auth.register.submit")}
                             onPress={handleRegister}
                             disabled={!username || !email || !password}
                             loading={isSubmitting || isLoading}
                         />
                         <AppButton
-                            title="Torna al login"
+                            title={t("auth.register.goToLogin")}
                             variant="secondary"
                             onPress={() => navigation.navigate("Login")}
                         />

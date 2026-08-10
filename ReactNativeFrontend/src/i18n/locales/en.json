@@ -1,0 +1,49 @@
+{
+    "common": {
+        "back": "Back"
+    },
+    "navigation": {
+        "login": "Login",
+        "register": "Register",
+        "home": "Home"
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Sign in to your account to continue",
+            "usernameLabel": "Username",
+            "usernamePlaceholder": "Your username",
+            "passwordLabel": "Password",
+            "passwordPlaceholder": "Your password",
+            "submit": "Log in",
+            "goToRegister": "Create an account",
+            "error": "Invalid credentials. Please try again."
+        },
+        "register": {
+            "title": "Create account",
+            "subtitle": "Sign up to start tracking your expenses",
+            "usernameLabel": "Username",
+            "usernamePlaceholder": "Choose a username",
+            "emailLabel": "Email",
+            "emailPlaceholder": "name@example.com",
+            "passwordLabel": "Password",
+            "passwordPlaceholder": "Create a password",
+            "confirmPasswordLabel": "Confirm password",
+            "confirmPasswordPlaceholder": "Re-enter your password",
+            "submit": "Sign up",
+            "goToLogin": "Back to login",
+            "error": "Registration failed. Please try again.",
+            "passwordMismatch": "Passwords do not match"
+        }
+    },
+    "home": {
+        "greeting": "Hi, {{username}}",
+        "subtitle": "Welcome back to your dashboard",
+        "logout": "Logout"
+    },
+    "validation": {
+        "passwordMinLength": "Password must contain at least {{min}} characters",
+        "passwordMinSpecialSymbols": "Password must contain at least {{min}} special symbol(s)",
+        "passwordMinNumbers": "Password must contain at least {{min}} number(s)"
+    }
+}
